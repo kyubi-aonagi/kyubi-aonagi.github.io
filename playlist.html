@@ -1,0 +1,624 @@
+<title>Aonagi Playlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0a1220;
+    --dusk:#122544;
+    --panel:#0f1e38;
+    --card:#0d1c34;
+    --mist:#1e385c;
+    --frost:#c6d9ee;
+    --moon:#f4f8ff;
+    --kitsune:#5f9bdc;
+    --kitsune-soft:#3a6ba3;
+    --ember:#e0955c;
+    --serif:'Cormorant','Times New Roman',serif;
+    --sans:'Be Vietnam Pro','Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    background:var(--void);
+    color:var(--frost);
+    font-family:var(--sans);
+    min-height:100vh;
+    padding:clamp(16px,3vw,40px);
+    position:relative;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
+  }
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;}
+
+  /* ambient corner glow / wordmark, echoes the showcase page */
+  body::before{
+    content:"AONAGI";
+    position:fixed;
+    top:-4%;
+    right:-6%;
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:600;
+    font-size:min(22vw,260px);
+    color:transparent;
+    -webkit-text-stroke:1px rgba(198,217,238,.07);
+    z-index:0;
+    pointer-events:none;
+    white-space:nowrap;
+  }
+  body::after{
+    content:"";
+    position:fixed;
+    left:-10%;
+    bottom:-10%;
+    width:50vw;
+    height:50vw;
+    background:radial-gradient(closest-side, rgba(95,155,220,.12), transparent 70%);
+    z-index:0;
+    pointer-events:none;
+  }
+
+  .page{
+    position:relative;
+    z-index:1;
+    max-width:1180px;
+    margin:0 auto;
+  }
+
+  .toprow{
+    display:flex;
+    justify-content:flex-end;
+    padding:0 4px 14px;
+    font-size:.78rem;
+    color:var(--kitsune-soft);
+    letter-spacing:.03em;
+  }
+
+  .card{
+    position:relative;
+    background:linear-gradient(160deg, var(--card), var(--void) 120%);
+    border:1px solid var(--mist);
+    border-radius:28px;
+    padding:clamp(20px,3.4vw,42px) clamp(20px,3.4vw,48px);
+    box-shadow:0 40px 80px -30px rgba(2,6,14,.7);
+  }
+
+  /* nav */
+  .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+    margin-bottom:clamp(28px,5vw,48px);
+  }
+  .navlinks{
+    display:flex;
+    align-items:center;
+    gap:clamp(16px,3vw,32px);
+    font-size:.86rem;
+  }
+  .navlinks a{
+    position:relative;
+    color:var(--frost);
+    opacity:.72;
+    padding-bottom:10px;
+    transition:opacity .2s ease, color .2s ease;
+  }
+  .navlinks a:hover, .navlinks a:focus-visible{opacity:1; color:var(--kitsune);}
+  .navlinks a.active{opacity:1; color:var(--moon); font-weight:600;}
+  .navlinks a.active::after{
+    content:"";
+    position:absolute;
+    left:50%; bottom:0;
+    transform:translateX(-50%);
+    width:5px;height:5px;
+    border-radius:50%;
+    background:var(--kitsune);
+  }
+
+  .who{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .who .id{text-align:right;}
+  .who .name{font-size:.86rem;font-weight:600;color:var(--moon);}
+  .who .role{font-size:.7rem;color:var(--kitsune-soft);letter-spacing:.08em;text-transform:uppercase;}
+  .who img{
+    width:42px;height:42px;border-radius:50%;object-fit:cover;
+    border:2px solid var(--kitsune-soft);
+  }
+
+  /* main grid */
+  .player-grid{
+    display:grid;
+    grid-template-columns:1.15fr .95fr;
+    gap:clamp(28px,4vw,56px);
+    align-items:start;
+  }
+
+  /* disc column */
+  .disc-col{
+    display:flex;
+    gap:clamp(20px,3vw,40px);
+    align-items:center;
+  }
+  .disc-wrap{
+    position:relative;
+    width:clamp(180px,22vw,260px);
+    aspect-ratio:1;
+    flex:none;
+  }
+  .disc-ring{
+    position:absolute; inset:-14px;
+    transform:rotate(-90deg);
+  }
+  .disc-ring circle{
+    fill:none;
+    stroke-linecap:round;
+  }
+  .disc-ring .track{ stroke:var(--mist); stroke-width:3; }
+  .disc-ring .fill{ stroke:var(--kitsune); stroke-width:3; transition:stroke-dashoffset .2s linear; }
+  .vinyl{
+    position:absolute; inset:0;
+    border-radius:50%;
+    background:
+      repeating-radial-gradient(circle at 50% 50%, #0b0d12 0 2px, #14171e 2px 4px);
+    box-shadow:inset 0 0 0 1px rgba(244,248,255,.06), 0 20px 40px -14px rgba(0,0,0,.7);
+    animation:spin 9s linear infinite;
+    animation-play-state:paused;
+  }
+  .vinyl.spinning{animation-play-state:running;}
+  .vinyl::before{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:50%;
+    background:conic-gradient(from 200deg, rgba(255,255,255,.10), transparent 30%, transparent 70%, rgba(255,255,255,.05));
+  }
+  .vinyl .label{
+    position:absolute;
+    inset:32%;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--kitsune), var(--kitsune-soft));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 0 3px var(--void), inset 0 2px 6px rgba(0,0,0,.3);
+  }
+  .vinyl .label svg{width:46%;height:46%;}
+  .vinyl .hole{
+    position:absolute;
+    inset:47.5%;
+    border-radius:50%;
+    background:var(--void);
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  .transport{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+  .playbtn{
+    width:56px;height:56px;
+    border-radius:50%;
+    border:none;
+    background:var(--kitsune);
+    color:var(--void);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .2s ease;
+    box-shadow:0 12px 24px -10px rgba(95,155,220,.6);
+  }
+  .playbtn:hover, .playbtn:focus-visible{transform:translateY(-2px);}
+  .playbtn:focus-visible{outline:2px solid var(--moon); outline-offset:3px;}
+  .playbtn svg{width:20px;height:20px;}
+  .mutebtn{
+    width:36px;height:36px;
+    border-radius:50%;
+    border:1px solid var(--mist);
+    background:transparent;
+    color:var(--frost);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .mutebtn:hover, .mutebtn:focus-visible{border-color:var(--kitsune); color:var(--kitsune);}
+  .mutebtn svg{width:15px;height:15px;}
+
+  /* song info */
+  .song-info{
+    margin-top:clamp(20px,3vw,32px);
+  }
+  .eyebrow{
+    font-size:.7rem;
+    font-weight:600;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--kitsune);
+    margin:0 0 .7rem;
+    display:flex;
+    align-items:center;
+    gap:.6em;
+  }
+  .eyebrow::before{content:"";width:20px;height:1px;background:var(--kitsune);opacity:.7;}
+  .song-title{
+    font-family:var(--serif);
+    font-size:clamp(2.2rem,4.6vw,3.2rem);
+    font-weight:700;
+    color:var(--moon);
+    margin:0;
+    line-height:1;
+  }
+  .song-artist{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:1.05rem;
+    color:var(--kitsune);
+    margin:.4em 0 0;
+  }
+  .song-desc{
+    margin:1rem 0 0;
+    max-width:52ch;
+    font-size:.92rem;
+    color:var(--frost);
+  }
+  .song-more{
+    display:none;
+    margin:.6em 0 0;
+    max-width:52ch;
+    font-size:.84rem;
+    color:var(--kitsune-soft);
+  }
+  .song-more.open{display:block;}
+  .readmore{
+    display:inline-block;
+    margin-top:.6em;
+    font-size:.82rem;
+    color:var(--kitsune);
+    cursor:pointer;
+    border:none;
+    background:none;
+    padding:0;
+    font-style:italic;
+  }
+  .readmore:hover, .readmore:focus-visible{text-decoration:underline;}
+
+  .bubble{
+    position:relative;
+    margin-top:1.6rem;
+    max-width:340px;
+    padding:14px 18px;
+    background:var(--panel);
+    border:1px solid var(--mist);
+    border-radius:16px 16px 16px 4px;
+    font-size:.86rem;
+    color:var(--moon);
+    transition:opacity .3s ease;
+  }
+
+  /* playlist sidebar */
+  .side-head h2{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(1.8rem,3.4vw,2.3rem);
+    color:var(--kitsune);
+    margin:0 0 20px;
+  }
+  .track-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .track-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:12px 14px;
+    border-radius:14px;
+    border:1px solid transparent;
+    background:var(--panel);
+  }
+  .track-item.active{
+    border-color:var(--kitsune-soft);
+    box-shadow:0 0 0 1px rgba(95,155,220,.25) inset;
+  }
+  .track-item.placeholder{
+    background:transparent;
+    border:1px dashed var(--mist);
+    opacity:.55;
+  }
+  .track-thumb{
+    width:44px;height:44px;
+    border-radius:10px;
+    object-fit:cover;
+    flex:none;
+    background:var(--dusk);
+  }
+  .track-thumb.empty{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--kitsune-soft);
+    font-size:1rem;
+  }
+  .track-meta .t{font-size:.9rem;color:var(--moon);font-weight:500;}
+  .track-meta .s{font-size:.74rem;color:var(--kitsune-soft);margin-top:2px;}
+  .side-note{
+    margin-top:20px;
+    font-size:.8rem;
+    font-style:italic;
+    color:var(--kitsune-soft);
+    max-width:38ch;
+  }
+
+  /* search bar */
+  .search-wrap{
+    margin-top:clamp(28px,4vw,40px);
+  }
+  .search-pill{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    max-width:520px;
+    background:var(--dusk);
+    border:1px solid var(--mist);
+    border-radius:999px;
+    padding:6px 8px 6px 20px;
+  }
+  .search-pill svg{width:16px;height:16px;color:var(--kitsune-soft);flex:none;}
+  .search-pill input{
+    flex:1;
+    background:none;
+    border:none;
+    outline:none;
+    color:var(--moon);
+    font-family:var(--sans);
+    font-size:.88rem;
+    padding:10px 0;
+  }
+  .search-pill input::placeholder{color:var(--kitsune-soft); opacity:.8;}
+  .search-clear{
+    width:32px;height:32px;
+    border-radius:50%;
+    border:none;
+    background:var(--kitsune-soft);
+    color:var(--void);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    flex:none;
+  }
+  .search-clear svg{width:13px;height:13px;}
+
+  @media (max-width:820px){
+    .player-grid{grid-template-columns:1fr;}
+    .navlinks{order:2; width:100%; justify-content:flex-start;}
+    .who{order:1;}
+    .navbar{flex-direction:row-reverse; justify-content:space-between;}
+  }
+</style>
+
+<div class="page">
+  <div class="toprow">kyubi aonagi &middot; playlist</div>
+
+  <div class="card">
+    <div class="navbar">
+      <nav class="navlinks">
+        <a href="index.html">Trang chủ</a>
+        <a href="showcase.html">Model Showcase</a>
+        <a href="#" class="active" aria-current="page">Playlist</a>
+      </nav>
+      <div class="who">
+        <div class="id">
+          <div class="name">Kyubi Aonagi</div>
+          <div class="role">Người kể chuyện</div>
+        </div>
+        <img src="assets/images/aonagi.png" alt="Kyubi Aonagi">
+      </div>
+    </div>
+
+    <div class="player-grid">
+      <div>
+        <div class="disc-col">
+          <div class="disc-wrap">
+            <svg class="disc-ring" viewBox="0 0 200 200">
+              <circle class="track" cx="100" cy="100" r="92"/>
+              <circle class="fill" id="progressRing" cx="100" cy="100" r="92" stroke-dasharray="578" stroke-dashoffset="578"/>
+            </svg>
+            <div class="vinyl" id="vinyl">
+              <div class="label">
+                <svg viewBox="0 0 60 60"><path d="M20 24 L12 8 L26 18Z" fill="#0a1220"/><path d="M40 24 L48 8 L34 18Z" fill="#0a1220"/><circle cx="30" cy="32" r="16" fill="#0f1e38"/><path d="M22 30 q8 8 16 0" fill="none" stroke="#f4f8ff" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="hole"></div>
+            </div>
+          </div>
+          <div class="transport">
+            <button class="playbtn" id="playBtn" aria-label="Phát">
+              <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7Z"/></svg>
+              <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+            </button>
+            <button class="mutebtn" id="muteBtn" aria-label="Tắt tiếng">
+              <svg id="volIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M4 9v6h4l5 5V4L8 9Z"/><path d="M16.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              <svg id="muteIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M4 9v6h4l5 5V4L8 9Z"/><path d="M15 9l6 6M21 9l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="song-info">
+          <p class="eyebrow">Nhạc nền</p>
+          <h1 class="song-title">Xuân <span style="font-size:.55em;opacity:.7;">春</span></h1>
+          <p class="song-artist">단CHOO</p>
+          <p class="song-desc">Một bản mix dài hơn mười lăm phút, chọn làm nhạc nền cho những đêm Aonagi kể chuyện.</p>
+          <p class="song-more" id="songMore">Tệp do bạn tải về và cung cấp cho trang này. Bản phát ở đây được nén xuống chất lượng thấp hơn bản gốc để vừa với giới hạn dung lượng trang — chỉ dùng nội bộ, không đại diện bản phát hành chính thức của 단CHOO.</p>
+          <button class="readmore" id="readMoreBtn">đọc thêm..</button>
+
+          <div class="bubble" id="bubble">Nhấn vào bất kỳ đâu để bắt đầu phát nhạc 🌙</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="side-head"><h2>Playlist</h2></div>
+        <div class="track-list" id="trackList">
+          <div class="track-item active" data-title="xuân 단choo">
+            <img class="track-thumb" src="assets/images/aonagi.png" alt="">
+            <div class="track-meta">
+              <div class="t">Xuân · 단CHOO</div>
+              <div class="s">đang phát · 15:35</div>
+            </div>
+          </div>
+          <div class="track-item placeholder" data-title="sắp thêm">
+            <div class="track-thumb empty">?</div>
+            <div class="track-meta">
+              <div class="t">Chưa có bài hát</div>
+              <div class="s">sắp thêm</div>
+            </div>
+          </div>
+          <div class="track-item placeholder" data-title="sắp thêm">
+            <div class="track-thumb empty">?</div>
+            <div class="track-meta">
+              <div class="t">Chưa có bài hát</div>
+              <div class="s">sắp thêm</div>
+            </div>
+          </div>
+        </div>
+        <p class="side-note">Playlist của Aonagi sẽ có thêm bài theo thời gian.</p>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <div class="search-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="searchInput" type="text" placeholder="tìm trong playlist của Aonagi">
+        <button class="search-clear" id="searchClear" aria-label="Xoá tìm kiếm">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<audio id="audio" src="assets/audio/playlist.mp3" preload="auto" loop></audio>
+
+<script>
+(function(){
+  var audio = document.getElementById('audio');
+  var vinyl = document.getElementById('vinyl');
+  var playBtn = document.getElementById('playBtn');
+  var playIcon = document.getElementById('playIcon');
+  var pauseIcon = document.getElementById('pauseIcon');
+  var muteBtn = document.getElementById('muteBtn');
+  var volIcon = document.getElementById('volIcon');
+  var muteIcon = document.getElementById('muteIcon');
+  var bubble = document.getElementById('bubble');
+  var ring = document.getElementById('progressRing');
+  var circumference = 578;
+  var readMoreBtn = document.getElementById('readMoreBtn');
+  var songMore = document.getElementById('songMore');
+  var searchInput = document.getElementById('searchInput');
+  var searchClear = document.getElementById('searchClear');
+  var trackItems = document.querySelectorAll('.track-item');
+  var started = false;
+
+  audio.volume = 0.55;
+
+  function setPlayingUI(playing){
+    vinyl.classList.toggle('spinning', playing);
+    playIcon.style.display = playing ? 'none' : '';
+    pauseIcon.style.display = playing ? '' : 'none';
+    playBtn.setAttribute('aria-label', playing ? 'Tạm dừng' : 'Phát');
+    if(playing){
+      bubble.textContent = 'Đang phát nhạc nền cho hành trình của Aonagi...';
+    } else if(started){
+      bubble.textContent = 'Đã tạm dừng — nhấn play để nghe tiếp.';
+    }
+  }
+
+  function tryAutoplay(){
+    var p = audio.play();
+    if(p && p.catch){
+      p.then(function(){ started = true; setPlayingUI(true); })
+       .catch(function(){
+          setPlayingUI(false);
+          var resume = function(){
+            audio.play().then(function(){ started = true; setPlayingUI(true); }).catch(function(){});
+            document.removeEventListener('click', resume);
+            document.removeEventListener('keydown', resume);
+          };
+          document.addEventListener('click', resume);
+          document.addEventListener('keydown', resume);
+       });
+    }
+  }
+
+  playBtn.addEventListener('click', function(){
+    if(audio.paused){
+      audio.play().then(function(){ started = true; setPlayingUI(true); }).catch(function(){});
+    } else {
+      audio.pause();
+      setPlayingUI(false);
+    }
+  });
+
+  muteBtn.addEventListener('click', function(){
+    audio.muted = !audio.muted;
+    volIcon.style.display = audio.muted ? 'none' : '';
+    muteIcon.style.display = audio.muted ? '' : 'none';
+  });
+
+  audio.addEventListener('timeupdate', function(){
+    if(!audio.duration) return;
+    var frac = audio.currentTime / audio.duration;
+    ring.style.strokeDashoffset = circumference * (1 - frac);
+  });
+
+  function seekFromEvent(evt){
+    var svg = ring.ownerSVGElement;
+    var rect = svg.getBoundingClientRect();
+    var cx = rect.left + rect.width/2;
+    var cy = rect.top + rect.height/2;
+    var dx = evt.clientX - cx;
+    var dy = evt.clientY - cy;
+    var angle = Math.atan2(dy, dx) * 180/Math.PI;
+    angle = (angle + 90 + 360) % 360;
+    if(audio.duration){
+      audio.currentTime = (angle/360) * audio.duration;
+    }
+  }
+  ring.ownerDocument && document.querySelector('.disc-ring').addEventListener('click', function(evt){
+    seekFromEvent(evt);
+  });
+
+  readMoreBtn.addEventListener('click', function(){
+    var open = songMore.classList.toggle('open');
+    readMoreBtn.textContent = open ? 'thu gọn' : 'đọc thêm..';
+  });
+
+  function applyFilter(){
+    var q = searchInput.value.trim().toLowerCase();
+    trackItems.forEach(function(item){
+      var title = item.getAttribute('data-title') || '';
+      item.style.display = (!q || title.indexOf(q) !== -1) ? '' : 'none';
+    });
+  }
+  searchInput.addEventListener('input', applyFilter);
+  searchClear.addEventListener('click', function(){
+    searchInput.value = '';
+    applyFilter();
+    searchInput.focus();
+  });
+
+  tryAutoplay();
+})();
+</script>

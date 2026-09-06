@@ -1,0 +1,421 @@
+<title>Aonagi Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0a1220;
+    --dusk:#122544;
+    --panel:#0f1e38;
+    --mist:#1e385c;
+    --frost:#c6d9ee;
+    --moon:#f4f8ff;
+    --kitsune:#5f9bdc;
+    --kitsune-soft:#3a6ba3;
+    --ember:#e0955c;
+    --serif:'Cormorant','Times New Roman',serif;
+    --sans:'Be Vietnam Pro','Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    background:var(--void);
+    color:var(--frost);
+    font-family:var(--sans);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+    padding:clamp(16px,3vw,40px);
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
+  }
+  a{color:inherit;}
+
+  .backlink{
+    align-self:flex-start;
+    font-size:.82rem;
+    letter-spacing:.03em;
+  }
+  .backlink a{
+    text-decoration:none;
+    color:var(--kitsune);
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    opacity:.85;
+    transition:opacity .2s ease;
+  }
+  .backlink a:hover, .backlink a:focus-visible{opacity:1;}
+
+  /* ---------- poster shell ---------- */
+  .poster{
+    position:relative;
+    width:min(100%, 1320px);
+    aspect-ratio:16/9;
+    background:
+      radial-gradient(90% 70% at 78% 30%, rgba(95,155,220,.16), transparent 60%),
+      radial-gradient(60% 50% at 15% 85%, rgba(58,107,163,.14), transparent 65%),
+      var(--void);
+    border:1px solid var(--mist);
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .poster::after{
+    content:"";
+    position:absolute; inset:0;
+    border:1px solid rgba(244,248,255,.06);
+    margin:14px;
+    pointer-events:none;
+    z-index:5;
+  }
+
+  .bg-word{
+    position:absolute;
+    top:-6%;
+    left:50%;
+    transform:translateX(-50%);
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:600;
+    font-size:min(30vw, 400px);
+    line-height:1;
+    letter-spacing:-.02em;
+    color:transparent;
+    -webkit-text-stroke:1px rgba(198,217,238,.22);
+    white-space:nowrap;
+    z-index:0;
+    user-select:none;
+  }
+
+  .frame{
+    position:absolute; inset:0;
+    z-index:2;
+    padding:clamp(20px,3.4vw,44px);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:auto auto 1fr auto;
+  }
+
+  /* top-left tag */
+  .tag-row{
+    grid-column:1;
+    grid-row:1;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .num{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:1rem;
+    color:var(--void);
+    background:var(--kitsune);
+    padding:3px 11px;
+    border-radius:999px;
+    letter-spacing:.02em;
+  }
+  .tag-label{
+    font-size:.68rem;
+    font-weight:600;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--kitsune-soft);
+  }
+
+  /* title block */
+  .title-block{
+    grid-column:1;
+    grid-row:2;
+    margin-top:clamp(10px,2vw,22px);
+  }
+  .title-block h1{
+    margin:0;
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(2.1rem,4.6vw,3.6rem);
+    line-height:.96;
+    color:var(--moon);
+  }
+  .title-block h1 em{
+    font-style:italic;
+    color:var(--kitsune);
+    font-weight:600;
+  }
+  .pname{
+    margin:.5em 0 0;
+    font-size:.92rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--frost);
+    opacity:.8;
+  }
+
+  /* credits */
+  .credits{
+    grid-column:1;
+    grid-row:3;
+    align-self:end;
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+    margin-bottom:8px;
+  }
+  .credit{
+    display:flex;
+    gap:10px;
+    align-items:baseline;
+    font-size:.86rem;
+  }
+  .credit .ck{
+    width:78px;
+    flex:none;
+    font-size:.66rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--kitsune-soft);
+  }
+  .credit .cv{ color:var(--moon); }
+
+  /* disclaimer */
+  .disclaimer{
+    grid-column:1;
+    grid-row:4;
+    margin:0;
+    font-size:.62rem;
+    letter-spacing:.06em;
+    color:var(--kitsune-soft);
+    opacity:.75;
+    max-width:34ch;
+  }
+
+  /* portrait */
+  .portrait{
+    grid-column:2;
+    grid-row:1 / 5;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:radial-gradient(55% 50% at 50% 40%, rgba(95,155,220,.2), transparent 70%);
+  }
+  /* expression grid, top right */
+  .expr-grid{
+    grid-column:2;
+    grid-row:1;
+    justify-self:end;
+    display:grid;
+    grid-template-columns:repeat(4, clamp(34px,4vw,52px));
+    gap:8px;
+    background:rgba(15,30,56,.7);
+    border:1px solid var(--mist);
+    padding:8px;
+    border-radius:10px;
+    backdrop-filter:blur(4px);
+  }
+  .expr-cell{
+    aspect-ratio:1;
+    border-radius:6px;
+    background:var(--panel);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .expr-cell svg{width:76%;height:76%;}
+
+  /* meta bottom right */
+  .meta-tag{
+    grid-column:2;
+    grid-row:4;
+    justify-self:end;
+    align-self:end;
+    text-align:right;
+  }
+  .palette-dots{
+    display:flex;
+    gap:6px;
+    justify-content:flex-end;
+    margin-bottom:8px;
+  }
+  .palette-dots span{
+    width:12px;height:12px;
+    border-radius:50%;
+    border:1px solid rgba(244,248,255,.25);
+  }
+  .meta-tag .role{
+    margin:0;
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:1rem;
+    color:var(--moon);
+  }
+  .meta-tag .year{
+    margin:.25em 0 0;
+    font-size:.68rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--kitsune-soft);
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:760px){
+    .poster{aspect-ratio:auto;}
+    .bg-word{font-size:min(46vw,260px); top:-4%;}
+    .frame{
+      position:static;
+      display:flex;
+      flex-direction:column;
+      gap:22px;
+      padding:22px 20px 26px;
+    }
+    .tag-row,.title-block,.credits,.disclaimer,.portrait,.expr-grid,.meta-tag{
+      grid-column:auto; grid-row:auto; justify-self:auto; align-self:auto;
+    }
+    .portrait{order:2; justify-content:center;}
+    .expr-grid{order:1; justify-self:flex-end; align-self:flex-end;}
+    .tag-row{order:0;}
+    .title-block{order:0;}
+    .credits{order:3;}
+    .disclaimer{order:4;}
+    .meta-tag{order:5; text-align:left; justify-self:flex-start;}
+    .palette-dots{justify-content:flex-start;}
+  }
+
+  .bgm-toggle{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:50;
+    width:48px;height:48px;
+    border-radius:50%;
+    border:1px solid var(--mist);
+    background:var(--panel);
+    color:var(--frost);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 10px 24px -8px rgba(2,6,14,.6);
+    transition:border-color .2s ease, color .2s ease, transform .2s ease;
+  }
+  .bgm-toggle:hover, .bgm-toggle:focus-visible{border-color:var(--kitsune); color:var(--kitsune); transform:translateY(-2px);}
+  .bgm-toggle:focus-visible{outline:2px solid var(--moon); outline-offset:3px;}
+  .bgm-toggle svg{width:19px;height:19px;}
+  .bgm-toggle.playing{animation:bgmPulse 2.4s ease-in-out infinite;}
+  @keyframes bgmPulse{
+    0%,100%{box-shadow:0 10px 24px -8px rgba(2,6,14,.6), 0 0 0 0 rgba(95,155,220,.4);}
+    50%{box-shadow:0 10px 24px -8px rgba(2,6,14,.6), 0 0 0 8px rgba(95,155,220,0);}
+  }
+  @media (prefers-reduced-motion: reduce){ .bgm-toggle.playing{animation:none;} }
+</style>
+
+<p class="backlink"><a href="index.html">&larr; Quay lại trang chính</a> &nbsp;·&nbsp; <a href="playlist.html">Playlist</a></p>
+
+<button class="bgm-toggle" id="bgmToggle" aria-label="Bật nhạc nền" aria-pressed="false">
+  <svg class="ic-note" viewBox="0 0 24 24" fill="currentColor"><path d="M9 17V4l10-2v13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="17" r="2.6"/><circle cx="17" cy="15" r="2.6"/></svg>
+  <svg class="ic-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+</button>
+<audio id="bgm" src="assets/audio/bgm.mp3" loop preload="auto"></audio>
+
+<div class="poster">
+  <div class="bg-word" aria-hidden="true">AONAGI</div>
+
+  <div class="frame">
+    <div class="tag-row">
+      <span class="num">№01</span>
+      <span class="tag-label">Model Showcase</span>
+    </div>
+
+    <div class="title-block">
+      <h1>Model<br><em>Showcase</em></h1>
+      <p class="pname">Kyubi Aonagi</p>
+    </div>
+
+    <div class="credits">
+      <div class="credit"><span class="ck">Thiết kế</span><span class="cv">Đang cập nhật</span></div>
+      <div class="credit"><span class="ck">Live2D</span><span class="cv">Đang cập nhật</span></div>
+      <div class="credit"><span class="ck">Concept</span><span class="cv">Lore gốc — Kyubi Aonagi</span></div>
+    </div>
+
+    <p class="disclaimer">ART MASCOT TẠM THỜI · SẼ THAY BẰNG ART / RIG CHÍNH THỨC KHI HOÀN THIỆN</p>
+
+    <div class="portrait" aria-hidden="true">
+      <img src="assets/images/aonagi.png" alt="" style="width:min(78%,360px);height:auto;">
+    </div>
+
+    <div class="expr-grid">
+      <div class="expr-cell">
+        <svg viewBox="0 0 60 60"><circle cx="30" cy="34" r="20" fill="#f4f8ff"/><path d="M20 30 q10 12 20 0" fill="none" stroke="#16305a" stroke-width="2.4" stroke-linecap="round"/><circle cx="22" cy="30" r="2" fill="#0a1220"/><circle cx="38" cy="30" r="2" fill="#0a1220"/></svg>
+      </div>
+      <div class="expr-cell">
+        <svg viewBox="0 0 60 60"><circle cx="30" cy="34" r="20" fill="#f4f8ff"/><path d="M20 29 q10 -6 20 0" fill="none" stroke="#16305a" stroke-width="2.4" stroke-linecap="round"/><path d="M24 41 q6 5 12 0" fill="none" stroke="#16305a" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="expr-cell">
+        <svg viewBox="0 0 60 60"><circle cx="30" cy="34" r="20" fill="#f4f8ff"/><circle cx="22" cy="30" r="3" fill="#0a1220"/><circle cx="38" cy="30" r="3" fill="#0a1220"/><ellipse cx="30" cy="40" rx="4" ry="3" fill="#0a1220"/></svg>
+      </div>
+      <div class="expr-cell">
+        <svg viewBox="0 0 60 60"><circle cx="30" cy="34" r="20" fill="#f4f8ff"/><path d="M18 30 q12 10 24 0" fill="none" stroke="#16305a" stroke-width="2.4" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+
+    <div class="meta-tag">
+      <div class="palette-dots">
+        <span style="background:#0a1220"></span>
+        <span style="background:#5f9bdc"></span>
+        <span style="background:#f4f8ff"></span>
+        <span style="background:#e0955c"></span>
+      </div>
+      <p class="role">Người kể chuyện</p>
+      <p class="year">2026 · Showcase №01</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var audio = document.getElementById('bgm');
+  var btn = document.getElementById('bgmToggle');
+  var noteIcon = btn.querySelector('.ic-note');
+  var pauseIcon = btn.querySelector('.ic-pause');
+  audio.volume = 0.4;
+
+  function setUI(playing){
+    btn.classList.toggle('playing', playing);
+    btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+    btn.setAttribute('aria-label', playing ? 'Tắt nhạc nền' : 'Bật nhạc nền');
+    noteIcon.style.display = playing ? 'none' : '';
+    pauseIcon.style.display = playing ? '' : 'none';
+  }
+
+  function tryAutoplay(){
+    var p = audio.play();
+    if(p && p.catch){
+      p.then(function(){ setUI(true); }).catch(function(){
+        setUI(false);
+        var resume = function(evt){
+          if(btn.contains(evt.target)) return;
+          audio.play().then(function(){ setUI(true); }).catch(function(){});
+          document.removeEventListener('click', resume);
+          document.removeEventListener('keydown', resume);
+        };
+        document.addEventListener('click', resume);
+        document.addEventListener('keydown', resume);
+      });
+    }
+  }
+
+  btn.addEventListener('click', function(){
+    if(audio.paused){
+      audio.play().then(function(){ setUI(true); }).catch(function(){});
+    } else {
+      audio.pause();
+      setUI(false);
+    }
+  });
+
+  tryAutoplay();
+})();
+</script>
