@@ -13,8 +13,19 @@
     --kitsune:#5f9bdc;
     --kitsune-soft:#3a6ba3;
     --ember:#e0955c;
+    --glass-bg:rgba(15,30,56,.46);
+    --glass-border:rgba(244,248,255,.12);
+    --glass-highlight:rgba(244,248,255,.16);
     --serif:'Cormorant', 'Times New Roman', serif;
     --sans:'Be Vietnam Pro', 'Segoe UI', sans-serif;
+  }
+
+  .glass{
+    background:var(--glass-bg);
+    -webkit-backdrop-filter:blur(18px) saturate(150%);
+    backdrop-filter:blur(18px) saturate(150%);
+    border:1px solid var(--glass-border);
+    box-shadow:inset 0 1px 0 var(--glass-highlight), 0 20px 40px -24px rgba(2,6,14,.7);
   }
 
   *{box-sizing:border-box;}
@@ -88,8 +99,11 @@
     position:sticky;
     top:0;
     z-index:5;
-    background:linear-gradient(to bottom, rgba(10,18,32,.92), rgba(10,18,32,.7) 70%, transparent);
-    backdrop-filter:blur(6px);
+    background:rgba(10,18,32,.42);
+    -webkit-backdrop-filter:blur(16px) saturate(150%);
+    backdrop-filter:blur(16px) saturate(150%);
+    border-bottom:1px solid var(--glass-border);
+    box-shadow:inset 0 -1px 0 var(--glass-highlight);
   }
   .topbar{
     display:flex;
@@ -311,16 +325,14 @@
   .seal{
     position:relative;
     padding:14px 22px;
-    border:1px solid var(--mist);
-    border-radius:8px;
+    border-radius:999px;
     font-family:var(--serif);
     font-style:italic;
     font-size:1.05rem;
     color:var(--frost);
-    background:var(--panel);
-    transition:border-color .25s ease, color .25s ease;
+    transition:border-color .25s ease, color .25s ease, transform .25s ease;
   }
-  .seal:hover{ border-color:var(--kitsune-soft); color:var(--moon); }
+  .seal:hover{ border-color:var(--kitsune-soft); color:var(--moon); transform:translateY(-2px); }
   .lives-note{
     margin-top:24px;
     max-width:58ch;
@@ -333,16 +345,14 @@
   .vitals{
     display:grid;
     grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
-    gap:1px;
-    background:var(--mist);
-    border:1px solid var(--mist);
-    border-radius:14px;
-    overflow:hidden;
+    gap:12px;
   }
   .vital{
-    background:var(--panel);
     padding:24px 22px;
+    border-radius:14px;
+    transition:border-color .25s ease, transform .25s ease;
   }
+  .vital:hover{ border-color:var(--kitsune-soft); transform:translateY(-2px); }
   .vital .k{
     font-size:.68rem;
     letter-spacing:.14em;
@@ -415,8 +425,7 @@
     width:min(100%, 420px);
     aspect-ratio:3/4;
     border-radius:18px;
-    border:1px solid var(--mist);
-    background:radial-gradient(120% 90% at 50% 20%, rgba(95,155,220,.16), transparent 60%), var(--panel);
+    background-image:radial-gradient(120% 90% at 50% 20%, rgba(95,155,220,.2), transparent 60%);
     position:relative;
     overflow:hidden;
     display:flex;
@@ -476,14 +485,11 @@
     z-index:50;
     width:48px;height:48px;
     border-radius:50%;
-    border:1px solid var(--mist);
-    background:var(--panel);
     color:var(--frost);
     display:flex;
     align-items:center;
     justify-content:center;
     cursor:pointer;
-    box-shadow:0 10px 24px -8px rgba(2,6,14,.6);
     transition:border-color .2s ease, color .2s ease, transform .2s ease;
   }
   .bgm-toggle:hover, .bgm-toggle:focus-visible{border-color:var(--kitsune); color:var(--kitsune); transform:translateY(-2px);}
@@ -499,7 +505,7 @@
 
 <canvas id="sky" aria-hidden="true"></canvas>
 
-<button class="bgm-toggle" id="bgmToggle" aria-label="Bật nhạc nền" aria-pressed="false">
+<button class="bgm-toggle glass" id="bgmToggle" aria-label="Bật nhạc nền" aria-pressed="false">
   <svg class="ic-note" viewBox="0 0 24 24" fill="currentColor"><path d="M9 17V4l10-2v13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="17" r="2.6"/><circle cx="17" cy="15" r="2.6"/></svg>
   <svg class="ic-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
 </button>
@@ -581,10 +587,10 @@
         <h2>Trước khi là Aonagi</h2>
       </div>
       <div class="lives">
-        <span class="seal">Lữ khách</span>
-        <span class="seal">Người kể chuyện</span>
-        <span class="seal">Chính câu chuyện</span>
-        <span class="seal">Kẻ vô danh</span>
+        <span class="seal glass">Lữ khách</span>
+        <span class="seal glass">Người kể chuyện</span>
+        <span class="seal glass">Chính câu chuyện</span>
+        <span class="seal glass">Kẻ vô danh</span>
       </div>
       <p class="lives-note">Đứng giữa thời đại mới, Aonagi không cảm thấy sợ hãi — chỉ là có chút lạc lõng. Nàng dành nhiều ngày quan sát, lắng nghe những cuộc trò chuyện nơi góc phố, cố ghép từng mảnh vụn của một thế giới mà mình đã bỏ lỡ. Và lần đầu tiên sau rất lâu, nàng cảm thấy hứng thú trở lại.</p>
     </section>
@@ -596,11 +602,11 @@
         <h2>Aonagi, hôm nay</h2>
       </div>
       <div class="vitals">
-        <div class="vital"><div class="k">Danh xưng</div><div class="v">Kyubi Aonagi</div></div>
-        <div class="vital"><div class="k">Loài</div><div class="v">Cửu Vĩ Hồ</div></div>
-        <div class="vital"><div class="k">Tuổi</div><div class="v">Không thể đếm</div></div>
-        <div class="vital"><div class="k">Tỉnh giấc</div><div class="v">Một ngày hè, khi tiếng ve cất lên</div></div>
-        <div class="vital"><div class="k">Vai trò</div><div class="v">Người kể chuyện thời đại mới</div></div>
+        <div class="vital glass"><div class="k">Danh xưng</div><div class="v">Kyubi Aonagi</div></div>
+        <div class="vital glass"><div class="k">Loài</div><div class="v">Cửu Vĩ Hồ</div></div>
+        <div class="vital glass"><div class="k">Tuổi</div><div class="v">Không thể đếm</div></div>
+        <div class="vital glass"><div class="k">Tỉnh giấc</div><div class="v">Một ngày hè, khi tiếng ve cất lên</div></div>
+        <div class="vital glass"><div class="k">Vai trò</div><div class="v">Người kể chuyện thời đại mới</div></div>
       </div>
     </section>
 
@@ -625,7 +631,7 @@
         <h2>Dưới ánh trăng</h2>
       </div>
       <div class="appearance">
-        <div class="art-frame">
+        <div class="art-frame glass">
           <img src="assets/images/aonagi-model.png" alt="Kyubi Aonagi - model chính thức" style="height:clamp(300px,42vw,460px);width:auto;max-width:90%;">
         </div>
         <p class="art-caption">Model chính thức của Kyubi Aonagi.</p>

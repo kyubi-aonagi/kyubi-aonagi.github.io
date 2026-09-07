@@ -14,8 +14,18 @@
     --kitsune:#5f9bdc;
     --kitsune-soft:#3a6ba3;
     --ember:#e0955c;
+    --glass-bg:rgba(15,30,56,.4);
+    --glass-border:rgba(244,248,255,.12);
+    --glass-highlight:rgba(244,248,255,.16);
     --serif:'Cormorant','Times New Roman',serif;
     --sans:'Be Vietnam Pro','Segoe UI',sans-serif;
+  }
+  .glass{
+    background:var(--glass-bg);
+    -webkit-backdrop-filter:blur(22px) saturate(150%);
+    backdrop-filter:blur(22px) saturate(150%);
+    border:1px solid var(--glass-border);
+    box-shadow:inset 0 1px 0 var(--glass-highlight), 0 30px 60px -28px rgba(2,6,14,.75);
   }
   *{box-sizing:border-box;}
   html,body{margin:0;}
@@ -80,11 +90,8 @@
 
   .card{
     position:relative;
-    background:linear-gradient(160deg, var(--card), var(--void) 120%);
-    border:1px solid var(--mist);
     border-radius:28px;
     padding:clamp(20px,3.4vw,42px) clamp(20px,3.4vw,48px);
-    box-shadow:0 40px 80px -30px rgba(2,6,14,.7);
   }
 
   /* nav */
@@ -299,8 +306,6 @@
     margin-top:1.6rem;
     max-width:340px;
     padding:14px 18px;
-    background:var(--panel);
-    border:1px solid var(--mist);
     border-radius:16px 16px 16px 4px;
     font-size:.86rem;
     color:var(--moon);
@@ -327,11 +332,10 @@
     padding:12px 14px;
     border-radius:14px;
     border:1px solid transparent;
-    background:var(--panel);
+    transition:border-color .2s ease;
   }
   .track-item.active{
     border-color:var(--kitsune-soft);
-    box-shadow:0 0 0 1px rgba(95,155,220,.25) inset;
   }
   .track-item.placeholder{
     background:transparent;
@@ -371,8 +375,6 @@
     align-items:center;
     gap:12px;
     max-width:520px;
-    background:var(--dusk);
-    border:1px solid var(--mist);
     border-radius:999px;
     padding:6px 8px 6px 20px;
   }
@@ -413,7 +415,7 @@
 <div class="page">
   <div class="toprow">kyubi aonagi &middot; playlist</div>
 
-  <div class="card">
+  <div class="card glass">
     <div class="navbar">
       <nav class="navlinks">
         <a href="index.html">Trang chủ</a>
@@ -464,14 +466,14 @@
           <p class="song-more" id="songMore">Tệp do bạn tải về và cung cấp cho trang này. Bản phát ở đây được nén xuống chất lượng thấp hơn bản gốc để vừa với giới hạn dung lượng trang — chỉ dùng nội bộ, không đại diện bản phát hành chính thức của 단CHOO.</p>
           <button class="readmore" id="readMoreBtn">đọc thêm..</button>
 
-          <div class="bubble" id="bubble">Nhấn vào bất kỳ đâu để bắt đầu phát nhạc 🌙</div>
+          <div class="bubble glass" id="bubble">Nhấn vào bất kỳ đâu để bắt đầu phát nhạc 🌙</div>
         </div>
       </div>
 
       <div>
         <div class="side-head"><h2>Playlist</h2></div>
         <div class="track-list" id="trackList">
-          <div class="track-item active" data-title="xuân 단choo">
+          <div class="track-item active glass" data-title="xuân 단choo">
             <img class="track-thumb" src="assets/images/aonagi.png" alt="">
             <div class="track-meta">
               <div class="t">Xuân · 단CHOO</div>
@@ -498,7 +500,7 @@
     </div>
 
     <div class="search-wrap">
-      <div class="search-pill">
+      <div class="search-pill glass">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
         <input id="searchInput" type="text" placeholder="tìm trong playlist của Aonagi">
         <button class="search-clear" id="searchClear" aria-label="Xoá tìm kiếm">
