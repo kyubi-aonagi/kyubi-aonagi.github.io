@@ -86,19 +86,13 @@
 
   .bg-word{
     position:absolute;
-    top:-6%;
+    top:-10%;
     left:50%;
     transform:translateX(-50%);
-    font-family:var(--serif);
-    font-style:italic;
-    font-weight:600;
-    font-size:min(30vw, 400px);
-    line-height:1;
-    letter-spacing:-.02em;
-    color:transparent;
-    -webkit-text-stroke:1px rgba(198,217,238,.22);
-    white-space:nowrap;
+    width:min(88vw, 1180px);
+    height:auto;
     z-index:0;
+    pointer-events:none;
     user-select:none;
   }
 
@@ -272,7 +266,7 @@
   /* ---------- responsive ---------- */
   @media (max-width:760px){
     .poster{aspect-ratio:auto;}
-    .bg-word{font-size:min(46vw,260px); top:-4%;}
+    .bg-word{width:min(130vw,700px); top:-6%;}
     .frame{
       position:static;
       display:flex;
@@ -343,7 +337,7 @@
 <audio id="bgm" src="assets/audio/bgm.mp3" loop preload="auto"></audio>
 
 <div class="poster">
-  <div class="bg-word" aria-hidden="true">AONAGI</div>
+  <img class="bg-word" src="assets/images/aonagi-logo-ghost.png" alt="" aria-hidden="true">
 
   <div class="frame">
     <div class="tag-row">
