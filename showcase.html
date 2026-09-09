@@ -1,4 +1,6 @@
 <title>Aonagi Showcase</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -314,9 +316,25 @@
     50%{box-shadow:0 10px 24px -8px rgba(2,6,14,.6), 0 0 0 8px rgba(95,155,220,0);}
   }
   @media (prefers-reduced-motion: reduce){ .bgm-toggle.playing{animation:none;} }
+
+  .top-row{
+    width:min(100%, 1320px);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .top-row img{
+    height:26px;
+    width:auto;
+    display:block;
+  }
 </style>
 
-<p class="backlink"><a href="index.html">&larr; Quay lại trang chính</a> &nbsp;·&nbsp; <a href="playlist.html">Playlist</a></p>
+<div class="top-row">
+  <a href="index.html"><img src="assets/images/aonagi-logo.png" alt="Kyubi Aonagi"></a>
+  <p class="backlink"><a href="index.html">&larr; Quay lại trang chính</a> &nbsp;·&nbsp; <a href="playlist.html">Playlist</a></p>
+</div>
 
 <button class="bgm-toggle glass" id="bgmToggle" aria-label="Bật nhạc nền" aria-pressed="false">
   <svg class="ic-note" viewBox="0 0 24 24" fill="currentColor"><path d="M9 17V4l10-2v13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="17" r="2.6"/><circle cx="17" cy="15" r="2.6"/></svg>

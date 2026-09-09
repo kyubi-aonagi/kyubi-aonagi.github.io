@@ -1,4 +1,6 @@
 <title>Aonagi Playlist</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -103,6 +105,13 @@
     gap:16px;
     margin-bottom:clamp(28px,5vw,48px);
   }
+  .nav-left{
+    display:flex;
+    align-items:center;
+    gap:clamp(18px,3vw,32px);
+  }
+  .nav-logo{ display:flex; align-items:center; }
+  .nav-logo img{ height:24px; width:auto; display:block; }
   .navlinks{
     display:flex;
     align-items:center;
@@ -406,9 +415,9 @@
 
   @media (max-width:820px){
     .player-grid{grid-template-columns:1fr;}
-    .navlinks{order:2; width:100%; justify-content:flex-start;}
+    .nav-left{order:2; width:100%; justify-content:flex-start;}
     .who{order:1;}
-    .navbar{flex-direction:row-reverse; justify-content:space-between;}
+    .navbar{flex-direction:row-reverse; justify-content:space-between; flex-wrap:wrap;}
   }
 </style>
 
@@ -417,11 +426,14 @@
 
   <div class="card glass">
     <div class="navbar">
-      <nav class="navlinks">
-        <a href="index.html">Trang chủ</a>
-        <a href="showcase.html">Model Showcase</a>
-        <a href="#" class="active" aria-current="page">Playlist</a>
-      </nav>
+      <div class="nav-left">
+        <a class="nav-logo" href="index.html"><img src="assets/images/aonagi-logo.png" alt="Kyubi Aonagi"></a>
+        <nav class="navlinks">
+          <a href="index.html">Trang chủ</a>
+          <a href="showcase.html">Model Showcase</a>
+          <a href="#" class="active" aria-current="page">Playlist</a>
+        </nav>
+      </div>
       <div class="who">
         <div class="id">
           <div class="name">Kyubi Aonagi</div>

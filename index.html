@@ -1,4 +1,6 @@
 <title>Kyubi Aonagi</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,500&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -114,16 +116,14 @@
     margin:0 auto;
   }
   .brand{
-    font-family:var(--serif);
-    font-size:1.15rem;
-    font-weight:600;
-    color:var(--moon);
-    letter-spacing:.02em;
     display:flex;
     align-items:center;
-    gap:.5em;
   }
-  .brand svg{width:20px;height:20px;flex:none;}
+  .brand img{
+    height:30px;
+    width:auto;
+    display:block;
+  }
   nav.links{
     display:flex;
     gap:clamp(14px,3vw,28px);
@@ -151,15 +151,28 @@
     align-items:center;
   }
   .hero-copy .eyebrow{margin-bottom:1.1rem;}
-  .hero h1{
-    font-size:clamp(3rem, 7vw, 5.4rem);
-    line-height:.98;
-    letter-spacing:-.01em;
+  .sr-only{
+    position:absolute;
+    width:1px;height:1px;
+    padding:0;margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+    border:0;
   }
-  .hero h1 em{
+  .kyubi-label{
+    font-family:var(--serif);
     font-style:italic;
-    color:var(--kitsune);
-    font-weight:500;
+    font-size:clamp(1.1rem,2.2vw,1.5rem);
+    color:var(--frost);
+    opacity:.75;
+    margin:0 0 -.6em 2px;
+  }
+  .brand-logo{
+    display:block;
+    width:clamp(260px,32vw,440px);
+    height:auto;
+    margin-left:-8px;
   }
   .hero .tagline{
     font-family:var(--serif);
@@ -515,10 +528,9 @@
 
   <header class="top">
     <div class="topbar">
-      <div class="brand">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c-2 2.5-2 6 0 9-2-1-4-1-6 1 1-3 0-5-2-6.5C6 6 9 5 12 3Z" fill="currentColor" opacity=".9"/><path d="M12 3c2 2.5 2 6 0 9 2-1 4-1 6 1-1-3 0-5 2-6.5C18 6 15 5 12 3Z" fill="currentColor" opacity=".55"/></svg>
-        Kyubi Aonagi
-      </div>
+      <a class="brand" href="index.html">
+        <img src="assets/images/aonagi-logo.png" alt="Kyubi Aonagi">
+      </a>
       <nav class="links">
         <a href="#lore">Truyền thuyết</a>
         <a href="#ho-so">Hồ sơ</a>
@@ -536,7 +548,9 @@
     <section class="hero" style="border-top:none;padding-top:clamp(40px,7vw,72px);">
       <div class="hero-copy">
         <p class="eyebrow">Một hồ ly ngủ quên giữa dòng thời gian</p>
-        <h1>Kyubi<br><em>Aonagi</em></h1>
+        <h1 class="sr-only">Kyubi Aonagi</h1>
+        <p class="kyubi-label" aria-hidden="true">Kyubi</p>
+        <img class="brand-logo" src="assets/images/aonagi-logo.png" alt="" aria-hidden="true">
         <p class="tagline">Người kể chuyện của một thời đại mới.</p>
 
         <div class="meta-row">
