@@ -341,15 +341,17 @@
     padding:12px 14px;
     border-radius:14px;
     border:1px solid transparent;
-    transition:border-color .2s ease;
+    transition:border-color .2s ease, transform .2s ease;
+    width:100%;
+    text-align:left;
+    cursor:pointer;
+    color:inherit;
+    font-family:inherit;
   }
+  .track-item:hover{ transform:translateY(-1px); }
+  .track-item:focus-visible{ outline:2px solid var(--kitsune); outline-offset:2px; }
   .track-item.active{
     border-color:var(--kitsune-soft);
-  }
-  .track-item.placeholder{
-    background:transparent;
-    border:1px dashed var(--mist);
-    opacity:.55;
   }
   .track-thumb{
     width:44px;height:44px;
@@ -357,13 +359,6 @@
     object-fit:cover;
     flex:none;
     background:var(--dusk);
-  }
-  .track-thumb.empty{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--kitsune-soft);
-    font-size:1rem;
   }
   .track-meta .t{font-size:.9rem;color:var(--moon);font-weight:500;}
   .track-meta .s{font-size:.74rem;color:var(--kitsune-soft);margin-top:2px;}
@@ -471,11 +466,11 @@
         </div>
 
         <div class="song-info">
-          <p class="eyebrow">Nhạc nền</p>
-          <h1 class="song-title">Xuân <span style="font-size:.55em;opacity:.7;">春</span></h1>
-          <p class="song-artist">단CHOO</p>
-          <p class="song-desc">Một bản mix dài hơn mười lăm phút, chọn làm nhạc nền cho những đêm Aonagi kể chuyện.</p>
-          <p class="song-more" id="songMore">Tệp do bạn tải về và cung cấp cho trang này. Bản phát ở đây được nén xuống chất lượng thấp hơn bản gốc để vừa với giới hạn dung lượng trang — chỉ dùng nội bộ, không đại diện bản phát hành chính thức của 단CHOO.</p>
+          <p class="eyebrow" id="eyebrow">Đang phát</p>
+          <h1 class="song-title" id="songTitle">4 Mùa Thương Em</h1>
+          <p class="song-artist" id="songArtist">Lập Nguyên x Night T</p>
+          <p class="song-desc" id="songDesc">Lofi tình cảm nhẹ nhàng — một bài trong playlist của Aonagi.</p>
+          <p class="song-more" id="songMore">Các bài hát trong playlist là file bạn tải về và cung cấp cho trang này, được nén lại để vừa dung lượng web — chỉ dùng nội bộ, không đại diện bản phát hành chính thức của nghệ sĩ gốc.</p>
           <button class="readmore" id="readMoreBtn">đọc thêm..</button>
 
           <div class="bubble glass" id="bubble">Nhấn vào bất kỳ đâu để bắt đầu phát nhạc 🌙</div>
@@ -485,27 +480,36 @@
       <div>
         <div class="side-head"><h2>Playlist</h2></div>
         <div class="track-list" id="trackList">
-          <div class="track-item active glass" data-title="xuân 단choo">
+          <button type="button" class="track-item active glass"
+            data-src="assets/audio/4-mua-thuong-em.mp3"
+            data-title="4 Mùa Thương Em" data-artist="Lập Nguyên x Night T" data-duration="4:29"
+            data-desc="Lofi tình cảm nhẹ nhàng — một bài trong playlist của Aonagi.">
             <img class="track-thumb" src="assets/images/aonagi.png" alt="">
             <div class="track-meta">
-              <div class="t">Xuân · 단CHOO</div>
-              <div class="s">đang phát · 15:35</div>
+              <div class="t">4 Mùa Thương Em</div>
+              <div class="s">Lập Nguyên x Night T · 4:29</div>
             </div>
-          </div>
-          <div class="track-item placeholder" data-title="sắp thêm">
-            <div class="track-thumb empty">?</div>
+          </button>
+          <button type="button" class="track-item glass"
+            data-src="assets/audio/cung-anh.mp3"
+            data-title="Cùng Anh" data-artist="Ngọc Dolil x NIB Remix" data-duration="4:13"
+            data-desc="Bản remix dịu dàng — một bài trong playlist của Aonagi.">
+            <img class="track-thumb" src="assets/images/aonagi.png" alt="">
             <div class="track-meta">
-              <div class="t">Chưa có bài hát</div>
-              <div class="s">sắp thêm</div>
+              <div class="t">Cùng Anh</div>
+              <div class="s">Ngọc Dolil x NIB Remix · 4:13</div>
             </div>
-          </div>
-          <div class="track-item placeholder" data-title="sắp thêm">
-            <div class="track-thumb empty">?</div>
+          </button>
+          <button type="button" class="track-item glass"
+            data-src="assets/audio/thieu-nien-hoa-hong.mp3"
+            data-title="Thiếu niên hoa hồng" data-artist="Vương Tĩnh Văn" data-duration="3:52"
+            data-desc="Ca khúc tiếng Trung nhiều cảm xúc — một bài trong playlist của Aonagi.">
+            <img class="track-thumb" src="assets/images/aonagi.png" alt="">
             <div class="track-meta">
-              <div class="t">Chưa có bài hát</div>
-              <div class="s">sắp thêm</div>
+              <div class="t">Thiếu niên hoa hồng</div>
+              <div class="s">Vương Tĩnh Văn · 3:52</div>
             </div>
-          </div>
+          </button>
         </div>
         <p class="side-note">Playlist của Aonagi sẽ có thêm bài theo thời gian.</p>
       </div>
@@ -523,7 +527,7 @@
   </div>
 </div>
 
-<audio id="audio" src="assets/audio/playlist.mp3" preload="auto" loop></audio>
+<audio id="audio" preload="auto"></audio>
 
 <script>
 (function(){
@@ -542,10 +546,50 @@
   var songMore = document.getElementById('songMore');
   var searchInput = document.getElementById('searchInput');
   var searchClear = document.getElementById('searchClear');
-  var trackItems = document.querySelectorAll('.track-item');
+  var trackItems = Array.prototype.slice.call(document.querySelectorAll('.track-item'));
+  var songTitle = document.getElementById('songTitle');
+  var songArtist = document.getElementById('songArtist');
+  var songDesc = document.getElementById('songDesc');
+  var eyebrow = document.getElementById('eyebrow');
   var started = false;
+  var currentIndex = 0;
 
   audio.volume = 0.55;
+
+  function renderTrackList(){
+    trackItems.forEach(function(item, i){
+      var isActive = i === currentIndex;
+      item.classList.toggle('active', isActive);
+      var s = item.querySelector('.track-meta .s');
+      var artist = item.getAttribute('data-artist');
+      var duration = item.getAttribute('data-duration');
+      s.textContent = (isActive ? 'Đang phát · ' : artist + ' · ') + duration;
+    });
+  }
+
+  function loadTrack(index, autoplay){
+    currentIndex = (index + trackItems.length) % trackItems.length;
+    var item = trackItems[currentIndex];
+    audio.src = item.getAttribute('data-src');
+    songTitle.textContent = item.getAttribute('data-title');
+    songArtist.textContent = item.getAttribute('data-artist');
+    songDesc.textContent = item.getAttribute('data-desc');
+    ring.style.strokeDashoffset = circumference;
+    renderTrackList();
+    if(autoplay){
+      audio.play().then(function(){ started = true; setPlayingUI(true); }).catch(function(){ setPlayingUI(false); });
+    }
+  }
+
+  trackItems.forEach(function(item, i){
+    item.addEventListener('click', function(){
+      loadTrack(i, true);
+    });
+  });
+
+  audio.addEventListener('ended', function(){
+    loadTrack(currentIndex + 1, true);
+  });
 
   function setPlayingUI(playing){
     vinyl.classList.toggle('spinning', playing);
@@ -557,6 +601,7 @@
     } else if(started){
       bubble.textContent = 'Đã tạm dừng — nhấn play để nghe tiếp.';
     }
+    renderTrackList();
   }
 
   function tryAutoplay(){
@@ -576,7 +621,8 @@
     }
   }
 
-  playBtn.addEventListener('click', function(){
+  playBtn.addEventListener('click', function(evt){
+    evt.stopPropagation();
     if(audio.paused){
       audio.play().then(function(){ started = true; setPlayingUI(true); }).catch(function(){});
     } else {
@@ -585,7 +631,8 @@
     }
   });
 
-  muteBtn.addEventListener('click', function(){
+  muteBtn.addEventListener('click', function(evt){
+    evt.stopPropagation();
     audio.muted = !audio.muted;
     volIcon.style.display = audio.muted ? 'none' : '';
     muteIcon.style.display = audio.muted ? '' : 'none';
@@ -622,8 +669,8 @@
   function applyFilter(){
     var q = searchInput.value.trim().toLowerCase();
     trackItems.forEach(function(item){
-      var title = item.getAttribute('data-title') || '';
-      item.style.display = (!q || title.indexOf(q) !== -1) ? '' : 'none';
+      var hay = ((item.getAttribute('data-title') || '') + ' ' + (item.getAttribute('data-artist') || '')).toLowerCase();
+      item.style.display = (!q || hay.indexOf(q) !== -1) ? '' : 'none';
     });
   }
   searchInput.addEventListener('input', applyFilter);
@@ -633,6 +680,7 @@
     searchInput.focus();
   });
 
+  loadTrack(0, false);
   tryAutoplay();
 })();
 </script>
