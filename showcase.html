@@ -101,7 +101,7 @@
     z-index:2;
     padding:clamp(20px,3.4vw,44px);
     display:grid;
-    grid-template-columns:0.78fr 1.22fr;
+    grid-template-columns:1fr 1fr;
     grid-template-rows:auto auto 1fr auto;
   }
 
@@ -197,12 +197,16 @@
     max-width:34ch;
   }
 
-  /* close-up bust, standing side-by-side with the full body, sharing the portrait area */
+  /* close-up bust, large and centered, flush against the bottom of the poster, behind the text */
   .bust-portrait{
-    height:clamp(230px,32vw,400px);
+    position:absolute;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+    height:98%;
     width:auto;
-    flex:none;
-    filter:drop-shadow(0 20px 40px rgba(4,10,20,.55));
+    z-index:1;
+    filter:drop-shadow(0 20px 40px rgba(4,10,20,.5));
   }
 
   /* portrait */
@@ -211,9 +215,8 @@
     grid-row:1 / 5;
     position:relative;
     display:flex;
-    align-items:flex-end;
+    align-items:center;
     justify-content:center;
-    gap:clamp(4px,1.4vw,16px);
     background:radial-gradient(55% 50% at 50% 40%, rgba(95,155,220,.2), transparent 70%);
   }
   /* expression column, flush against the right edge of the poster */
@@ -292,8 +295,8 @@
     .tag-row,.title-block,.credits,.disclaimer,.portrait,.expr-grid,.meta-tag{
       grid-column:auto; grid-row:auto; justify-self:auto; align-self:auto;
     }
-    .bust-portrait{position:static; height:clamp(160px,42vw,220px); width:auto; top:auto; left:auto;}
-    .portrait{order:2; justify-content:center; gap:14px; flex-wrap:wrap;}
+    .bust-portrait{position:static; display:block; margin:14px auto 0; height:clamp(200px,55vw,300px); width:auto; transform:none;}
+    .portrait{order:2; justify-content:center;}
     .expr-grid{position:static; order:1; flex-direction:row; margin:0 auto;}
     .tag-row{order:0;}
     .title-block{order:0;}
@@ -354,6 +357,7 @@
 
 <div class="poster">
   <img class="bg-word" src="assets/images/aonagi-logo-ghost.png" alt="" aria-hidden="true">
+  <img class="bust-portrait" src="assets/images/aonagi-bust.png" alt="" aria-hidden="true">
 
   <div class="frame">
     <div class="tag-row">
@@ -375,8 +379,7 @@
     <p class="disclaimer">ART MẪU CHÍNH THỨC · RIG LIVE2D SẼ CẬP NHẬT SAU</p>
 
     <div class="portrait" aria-hidden="true">
-      <img class="bust-portrait" src="assets/images/aonagi-bust.png" alt="">
-      <img src="assets/images/aonagi-model.png" alt="" style="height:clamp(300px,42vw,500px);width:auto;flex:none;filter:drop-shadow(0 30px 60px rgba(4,10,20,.55));">
+      <img src="assets/images/aonagi-model.png" alt="" style="height:clamp(340px,50vw,560px);width:auto;max-width:92%;filter:drop-shadow(0 30px 60px rgba(4,10,20,.55));">
     </div>
 
     <div class="expr-grid glass">
