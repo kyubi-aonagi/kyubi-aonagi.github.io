@@ -197,15 +197,15 @@
     max-width:34ch;
   }
 
-  /* close-up bust, layered behind the full body in the open space above credits */
+  /* close-up bust, layered to the left of the full body inside the portrait area */
   .bust-portrait{
-    grid-column:1;
-    grid-row:3;
-    align-self:start;
-    justify-self:start;
-    height:clamp(160px,21vw,240px);
+    position:absolute;
+    left:2%;
+    bottom:4%;
+    height:52%;
     width:auto;
-    margin-top:2px;
+    z-index:1;
+    opacity:.92;
     filter:drop-shadow(0 14px 28px rgba(4,10,20,.5));
   }
 
@@ -287,17 +287,17 @@
       gap:22px;
       padding:22px 20px 26px;
     }
-    .tag-row,.title-block,.credits,.disclaimer,.portrait,.expr-grid,.meta-tag,.bust-portrait{
+    .tag-row,.title-block,.credits,.disclaimer,.portrait,.expr-grid,.meta-tag{
       grid-column:auto; grid-row:auto; justify-self:auto; align-self:auto;
     }
-    .bust-portrait{order:1; display:block; margin:0 auto; height:clamp(180px,50vw,260px);}
-    .expr-grid{order:2; justify-self:flex-end; align-self:flex-end;}
-    .portrait{order:3; justify-content:center;}
+    .bust-portrait{left:0; bottom:0; height:44%;}
+    .expr-grid{order:1; justify-self:flex-end; align-self:flex-end;}
+    .portrait{order:2; justify-content:center;}
     .tag-row{order:0;}
     .title-block{order:0;}
-    .credits{order:4;}
-    .disclaimer{order:5;}
-    .meta-tag{order:6; text-align:left; justify-self:flex-start;}
+    .credits{order:3;}
+    .disclaimer{order:4;}
+    .meta-tag{order:5; text-align:left; justify-self:flex-start;}
     .palette-dots{justify-content:flex-start;}
   }
 
@@ -364,8 +364,6 @@
       <p class="pname">Kyubi Aonagi</p>
     </div>
 
-    <img class="bust-portrait" src="assets/images/aonagi-bust.png" alt="" aria-hidden="true">
-
     <div class="credits">
       <div class="credit"><span class="ck">Thiết kế</span><span class="cv">Nhim Nhoanhh</span></div>
       <div class="credit"><span class="ck">Live2D</span><span class="cv">Mứt Art</span></div>
@@ -375,7 +373,8 @@
     <p class="disclaimer">ART MẪU CHÍNH THỨC · RIG LIVE2D SẼ CẬP NHẬT SAU</p>
 
     <div class="portrait" aria-hidden="true">
-      <img src="assets/images/aonagi-model.png" alt="" style="height:clamp(340px,50vw,560px);width:auto;max-width:92%;filter:drop-shadow(0 30px 60px rgba(4,10,20,.55));">
+      <img class="bust-portrait" src="assets/images/aonagi-bust.png" alt="">
+      <img src="assets/images/aonagi-model.png" alt="" style="height:clamp(340px,50vw,560px);width:auto;max-width:92%;filter:drop-shadow(0 30px 60px rgba(4,10,20,.55));position:relative;z-index:2;">
     </div>
 
     <div class="expr-grid glass">
