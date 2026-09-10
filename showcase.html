@@ -197,6 +197,18 @@
     max-width:34ch;
   }
 
+  /* close-up bust, layered behind the full body in the open space above credits */
+  .bust-portrait{
+    grid-column:1;
+    grid-row:3;
+    align-self:start;
+    justify-self:start;
+    height:clamp(160px,21vw,240px);
+    width:auto;
+    margin-top:2px;
+    filter:drop-shadow(0 14px 28px rgba(4,10,20,.5));
+  }
+
   /* portrait */
   .portrait{
     grid-column:2;
@@ -213,14 +225,14 @@
     grid-row:1;
     justify-self:end;
     display:grid;
-    grid-template-columns:repeat(4, clamp(34px,4vw,52px));
-    gap:8px;
-    padding:8px;
-    border-radius:14px;
+    grid-template-columns:repeat(4, clamp(50px,6vw,76px));
+    gap:10px;
+    padding:10px;
+    border-radius:16px;
   }
   .expr-cell{
     aspect-ratio:1;
-    border-radius:6px;
+    border-radius:9px;
     background:var(--panel);
     display:flex;
     align-items:center;
@@ -275,16 +287,17 @@
       gap:22px;
       padding:22px 20px 26px;
     }
-    .tag-row,.title-block,.credits,.disclaimer,.portrait,.expr-grid,.meta-tag{
+    .tag-row,.title-block,.credits,.disclaimer,.portrait,.expr-grid,.meta-tag,.bust-portrait{
       grid-column:auto; grid-row:auto; justify-self:auto; align-self:auto;
     }
-    .portrait{order:2; justify-content:center;}
-    .expr-grid{order:1; justify-self:flex-end; align-self:flex-end;}
+    .bust-portrait{order:1; display:block; margin:0 auto; height:clamp(180px,50vw,260px);}
+    .expr-grid{order:2; justify-self:flex-end; align-self:flex-end;}
+    .portrait{order:3; justify-content:center;}
     .tag-row{order:0;}
     .title-block{order:0;}
-    .credits{order:3;}
-    .disclaimer{order:4;}
-    .meta-tag{order:5; text-align:left; justify-self:flex-start;}
+    .credits{order:4;}
+    .disclaimer{order:5;}
+    .meta-tag{order:6; text-align:left; justify-self:flex-start;}
     .palette-dots{justify-content:flex-start;}
   }
 
@@ -350,6 +363,8 @@
       <h1>Model<br><em>Showcase</em></h1>
       <p class="pname">Kyubi Aonagi</p>
     </div>
+
+    <img class="bust-portrait" src="assets/images/aonagi-bust.png" alt="" aria-hidden="true">
 
     <div class="credits">
       <div class="credit"><span class="ck">Thiết kế</span><span class="cv">Nhim Nhoanhh</span></div>
