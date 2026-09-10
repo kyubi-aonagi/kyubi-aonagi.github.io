@@ -197,16 +197,15 @@
     max-width:34ch;
   }
 
-  /* close-up bust, layered to the left of the full body inside the portrait area */
+  /* close-up bust, large and centered in front of the frame, full body sits to its right */
   .bust-portrait{
     position:absolute;
     left:2%;
-    bottom:4%;
-    height:52%;
+    top:4%;
+    height:92%;
     width:auto;
     z-index:1;
-    opacity:.92;
-    filter:drop-shadow(0 14px 28px rgba(4,10,20,.5));
+    filter:drop-shadow(0 20px 40px rgba(4,10,20,.55));
   }
 
   /* portrait */
@@ -219,19 +218,22 @@
     justify-content:center;
     background:radial-gradient(55% 50% at 50% 40%, rgba(95,155,220,.2), transparent 70%);
   }
-  /* expression grid, top right */
+  /* expression column, flush against the right edge of the poster */
   .expr-grid{
-    grid-column:2;
-    grid-row:1;
-    justify-self:end;
-    display:grid;
-    grid-template-columns:repeat(4, clamp(50px,6vw,76px));
+    position:absolute;
+    top:18px;
+    right:0;
+    z-index:3;
+    display:flex;
+    flex-direction:column;
     gap:10px;
     padding:10px;
-    border-radius:16px;
+    border-radius:16px 0 0 16px;
   }
   .expr-cell{
+    width:clamp(50px,6vw,76px);
     aspect-ratio:1;
+    flex:none;
     border-radius:9px;
     background:var(--panel);
     display:flex;
@@ -290,9 +292,9 @@
     .tag-row,.title-block,.credits,.disclaimer,.portrait,.expr-grid,.meta-tag{
       grid-column:auto; grid-row:auto; justify-self:auto; align-self:auto;
     }
-    .bust-portrait{left:0; bottom:0; height:44%;}
-    .expr-grid{order:1; justify-self:flex-end; align-self:flex-end;}
-    .portrait{order:2; justify-content:center;}
+    .bust-portrait{position:static; height:clamp(160px,42vw,220px); width:auto; top:auto; left:auto;}
+    .portrait{order:2; justify-content:center; gap:14px; flex-wrap:wrap;}
+    .expr-grid{position:static; order:1; flex-direction:row; margin:0 auto;}
     .tag-row{order:0;}
     .title-block{order:0;}
     .credits{order:3;}
